@@ -30,7 +30,7 @@ export default class LivingRoom extends World {
         const toolboxBoundingBox = new Box3().setFromObject(this.objects["Toolbox"].mesh);
         this.interactables["Toolbox"] = {};
         this.interactables["Toolbox"].box = toolboxBoundingBox.clone().expandByScalar(0.7);
-        this.interactables["Toolbox"].modal = createModal("Toolbox", `Press <strong>E</strong> to change the tracks.`);
+        this.interactables["Toolbox"].modal = createModal("Toolbox", `Press <strong>E</strong> to open the tile editor.`);
 
         const radioBoundingBox = new Box3().setFromObject(this.objects["Radio"].mesh);
         this.interactables["Radio"] = {};
@@ -40,7 +40,7 @@ export default class LivingRoom extends World {
         const remoteBoundingBox = new Box3().setFromObject(this.objects["Remote"].mesh);
         this.interactables["Remote"] = {};
         this.interactables["Remote"].box = remoteBoundingBox.clone().expandByScalar(0.5);
-        this.interactables["Remote"].modal = createModal("Remote", `Press <strong>Q</strong> to turn the TV on/off.`);
+        this.interactables["Remote"].modal = createModal("Remote", `Press <strong>Q</strong> to play/pause the TV.`);
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'e' || event.key === 'E') {

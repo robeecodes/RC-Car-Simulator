@@ -9,20 +9,6 @@
 </head>
 
 <body>
-<!--<div id="overlay"-->
-<!--     class="container-fluid min-vh-100 d-flex flex-column align-items-center justify-content-center bg-dark text-light text-center">-->
-<!--    <div id="info" class="mx-auto shadow-lg p-5 rounded-5">-->
-<!--        <h1 class="display-5 fw-bold mb-4">RC Car</h1>-->
-<!--        <h2 class="lead mb-2">Instructions:</h2>-->
-<!--        <ol class="text-start">-->
-<!--            <li>Use the arrow keys or wasd to move the car around.</li>-->
-<!--            <li>Press space to honk.</li>-->
-<!--            <li>Have Fun 😄✨ 😉👌</li>-->
-<!--        </ol>-->
-<!--        <button id="startButton" class="btn btn-lg btn-outline-primary mt-3 px-5 display-6">Play</button>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div id="overlay">
     <img src="img/rc-cover.webp" alt="rc car simulator cover image" />
     <div id="title" class="p-5 text-light">
@@ -91,6 +77,25 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="guide"
+     class="container-fluid min-vh-100 d-flex flex-column align-items-center justify-content-center bg-dark text-light text-center">
+    <div id="info" class="mx-auto shadow-lg p-5 rounded-5">
+        <h1 class="display-5 fw-bold mb-4">How to Play</h1>
+        <ol class="text-center list-unstyled">
+            <li>Move your car using WASD or the arrow keys</li>
+            <li>Honk using the spacebar</li>
+            <li>Hold down left click and move your mouse to rotate the camera</li>
+            <li>Hold down right click and move your mouse to move the camera</li>
+            <li>Use your scroll wheel to zoom in or out</li>
+        </ol>
+        <p>Some objects in the scene are interactable! When your car approaches them, you will be notified with a popup.</p>
+        <div class="alert alert-danger" role="alert">
+            This is an early demo of the simulator! If you face issues with the car getting stuck, please refresh the page. You can also refresh the page to restart the simulator.
+        </div>
+        <button id="playButton" class="btn btn-lg btn-outline-primary mt-3 px-5 display-6">Let's Go!</button>
     </div>
 </div>
 

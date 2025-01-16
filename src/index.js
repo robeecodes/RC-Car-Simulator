@@ -24,10 +24,11 @@ let world, car;
 
 let groundMaterial, wheelMaterial;
 
-const {overlay, worldSelect, carSelect} = UITools.getUIElements();
+const {overlay, worldSelect, carSelect, guide} = UITools.getUIElements();
 
 UITools.removeUIElement(worldSelect);
 UITools.removeUIElement(carSelect);
+UITools.removeUIElement(guide);
 
 let startButton = document.getElementById("startButton");
 startButton.addEventListener("click", toWorldSelect);
@@ -49,7 +50,7 @@ function toCarSelect(e) {
     UITools.addUIElement(carSelect);
     worldButton.removeEventListener("click", toCarSelect);
     carButton = document.getElementById("confirmCar");
-    carButton.addEventListener("click", init);
+    carButton.addEventListener("click", toGuide);
 
     carChoice = document.getElementsByName("carChoice");
     descBox = document.getElementById("desc");
@@ -71,6 +72,32 @@ function changeCarDesc(e) {
     }
 }
 
+let playButton;
+
+function toGuide(e) {
+    carChoice.forEach((choice, i) => {
+        choice.removeEventListener("click", changeCarDesc);
+    });
+    for (let i = 0; i < carChoice.length; i++) {
+        const item = carChoice[i];
+        if (!item.checked) continue;
+        switch (item.value) {
+            case "sports":
+                car = SportsCar;
+                break;
+            case "truck":
+                car = Truck;
+                break;
+        }
+        break;
+    }
+    UITools.removeUIElement(carSelect);
+    UITools.addUIElement(guide);
+    carButton.removeEventListener("click", toGuide);
+    playButton = document.getElementById("playButton");
+    playButton.addEventListener("click", init);
+}
+
 function loadEntities() {
     world = new LivingRoom(gltfLoader, scene, physicsWorld, groundMaterial, camera, () => {
         world.car = new car(gltfLoader, scene, physicsWorld, world.carStart, wheelMaterial, camera);
@@ -85,25 +112,11 @@ function loadEntities() {
 
     // Wait for loading manager and Tone to be loaded
     Promise.all([threeLoaderPromise, Tone.loaded()]).then(() => {
-        UITools.removeUIElement(carSelect);
+        UITools.removeUIElement(guide);
     });
 }
 
 function init() {
-    for (let i = 0; i < carChoice.length; i++) {
-        const item = carChoice[i];
-        if (!item.checked) continue;
-        switch (item.value) {
-            case "sports":
-                car = SportsCar;
-                break;
-            case "truck":
-                car = Truck;
-                break;
-        }
-        break;
-    }
-
     // Tone
     Tone.start();
 
