@@ -408,9 +408,8 @@ export default class Car {
      */
     _createHonk() {
         // Honk sfx
-        const dist = new Tone.Distortion(0.8).toDestination();
         this.honk = new Tone.Synth({
-            "volume": -12,
+            "volume": 0,
             "detune": 50,
             "portamento": 1,
             "envelope": {
@@ -482,8 +481,7 @@ export default class Car {
         }).toDestination();
 
         // Connect to gain node to control proximity audio
-        dist.connect(this.gainNode);
-        this.honk.connect(dist);
+        this.honk.connect(this.gainNode);
 
         // Honk with space
         window.addEventListener('keydown', (e) => {
