@@ -14,7 +14,7 @@ export default class TV {
         this.video.loop = true;
         this.video.muted = true;
         this.video.playsInline = true;
-        this.video.src = "video/shadow.mp4";
+        this.video.src = "video/jerma_the_saga.mp4";
         this.video.load();
 
         this.videoTexture = new THREE.VideoTexture(this.video);
