@@ -3,6 +3,13 @@ import * as Tone from "tone";
 
 import proximityVolume from "../utils/proximityVolume.js";
 
+/**
+ * Controls for the radio in the LivingRoom scene
+ * @class TV
+ * @property {Object} tvObject the object containing information about the tv such as mesh and position
+ * @property {Object} listener the object where the audio is heard from (typically camera)
+ * @property {THREE.Scene} scene the three.js scene
+ */
 export default class TV {
     constructor(tvObject, camera, scene) {
         this.camera = camera;

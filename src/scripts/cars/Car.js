@@ -11,11 +11,25 @@ import * as Three from "three";
  * Abstract Class Car.
  *
  * @class Car
+ * @abstract
  */
 export default class Car {
+    // Only one Car should exist
     static instance = null;
+    // Store currently pressed keys
     static pressed = {};
 
+    /**
+     * Create a car
+     * @param {GLTFLoader} loader The GLTFLoader
+     * @param {THREE.Scene} scene The Three.js scene
+     * @param {CANNON.World} physicsWorld The cannon-es physics world
+     * @param {THREE.Vector3} startPosition The start position of the car
+     * @param {CANNON.Material} wheelMaterial The physics material for the wheels
+     * @param {THREE.PerspectiveCamera} camera The Three.js camera for the scene
+     * @param {Number} maxForce The maximum force to apply to the car
+     * @param {String} modelPath The path to the car model
+     */
     constructor(loader, scene, physicsWorld, startPosition, wheelMaterial, camera, maxForce, modelPath) {
         // Stop if trying to instantiate abstract
         if (this.constructor === Car) {
@@ -28,8 +42,11 @@ export default class Car {
         }
 
         // Code for car properties
+        // The physics vehicle
         this.vehicle = null;
+        // The chassis physics body
         this.chassis = null;
+        // Data for all models
         this.models = {
             chassis: {
                 mesh: null,
@@ -39,8 +56,14 @@ export default class Car {
             wheels: [{}, {}, {}, {}],
             deco: []
         }
+
+        // Max force to apply to the car
         this.maxForce = maxForce;
+
+        // Flag id the car can drive
         this.isDriving = true;
+
+        // The start position of the car
         this.startPosition = startPosition;
 
         // Code for loading the model
@@ -68,8 +91,8 @@ export default class Car {
 
     /**
      * Load and store models from a given gltf
-     * @param {GLTFLoader} loader the GLTFLoader
-     * @param {String} modelPath the path to the model
+     * @param {GLTFLoader} loader The GLTFLoader
+     * @param {String} modelPath The path to the model
      * @returns {Promise<void>}
      * @async
      * @protected
@@ -177,8 +200,8 @@ export default class Car {
 
     /**
      * Create the physics car
-     * @param {CANNON.World} physicsWorld the physics world
-     * @param {CANNON.Material} wheelMaterial the wheel material
+     * @param {CANNON.World} physicsWorld The physics world
+     * @param {CANNON.Material} wheelMaterial The wheel material
      * @private
      */
     _addPhysics(physicsWorld, wheelMaterial) {
@@ -253,7 +276,7 @@ export default class Car {
 
     /**
      * Add the car models to the scene and set this instance
-     * @param {THREE.Scene} scene the three.js scene
+     * @param {THREE.Scene} scene The three.js scene
      * @protected
      */
     _createInstance(scene) {
@@ -509,7 +532,8 @@ export default class Car {
     }
 
     /**
-     * Car procedures which need updating
+     * Update function to run every frame
+     * @public
      */
     update() {
         // Do nothing if the care isn't load

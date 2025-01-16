@@ -5,8 +5,8 @@ import proximityVolume from "../utils/proximityVolume.js";
 /**
  * Controls for the radio in the LivingRoom scene
  * @class Radio
- * @param {Object} radioObject the object containing information about the radio such as mesh and position
- * @param {Object} listener the object where the audio is heard from (typically camera)
+ * @property {Object} radioObject the object containing information about the radio such as mesh and position
+ * @property {Object} listener the object where the audio is heard from (typically camera)
  */
 export default class Radio {
     constructor(radioObject, listener) {
@@ -51,6 +51,7 @@ export default class Radio {
 
     /**
      * Rotate between the radio stations
+     * @public
      */
     changeStation() {
         // Stop the current station
@@ -68,18 +69,16 @@ export default class Radio {
 
     /**
      * Turns radio on or off
+     * @public
      */
     toggleRadio() {
-        if (this.isPlaying) {
-            this.stations[this.currentStationIndex].stop();
-        } else {
-            this.stations[this.currentStationIndex].start();
-        }
+        this.isPlaying ? this.stations[this.currentStationIndex].stop() : this.stations[this.currentStationIndex].start();
         this.isPlaying = !this.isPlaying;
     }
 
     /**
      * Update function to run every frame
+     * @public
      */
     update() {
         // Update volume if a station is currently playing
