@@ -1,3 +1,11 @@
+import * as THREE from "three";
+
+/**
+ * Destroy a Three.js mesh
+ * @param {THREE.Mesh} mesh The mesh to destroy
+ * @param {THREE.Scene} scene The scene containing the mesh to destroy
+ * @public
+ */
 export default function destroyThreeMesh(mesh, scene) {
     // Remove the mesh from the scene
     if (scene && mesh) scene.remove(mesh);
@@ -14,14 +22,19 @@ export default function destroyThreeMesh(mesh, scene) {
 
     // Dispose of the material
     if (mesh.material) {
-        destroyThreeMesh(mesh.material);
+        destroyMaterial(mesh.material);
     }
 
+    // Make sure all properties are gone
     mesh.children = [];
     mesh.geometry = null;
     mesh.material = null;
 }
 
+/**
+ * Destroy a Three.js material
+ * @param {THREE.Material} material
+ */
 export function destroyMaterial(material) {
     // Handle materials that are arrays
     if (Array.isArray(material)) {

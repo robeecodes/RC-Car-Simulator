@@ -1,3 +1,5 @@
+import * as CANNON from 'cannon-es';
+
 /**
  * Destroy a cannon-es body
  * @param {CANNON.Body} body The physics body to destroy
