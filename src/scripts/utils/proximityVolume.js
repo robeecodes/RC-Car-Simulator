@@ -3,10 +3,10 @@ import * as Tone from "tone";
 
 /**
  * Controls the volume of audio elements based on their proximity to the listener
- * @param {THREE.Vector3} emitterPosition the position of the emitting audio element
- * @param {Object} listener the object which is listening to the audio (typically a camera)
- * @param {Tone.Gain} gainNode the node to control the volume of the emitter
- * @param {Number} maxVolume the maximum volume for this node
+ * @param {THREE.Vector3} emitterPosition The position of the emitting audio element
+ * @param {Object} listener The object which is listening to the audio (typically a camera)
+ * @param {Tone.Gain} gainNode The node to control the volume of the emitter
+ * @param {Number} maxVolume The maximum volume for this node
  */
 export default function proximityVolume(emitterPosition, listener, gainNode, maxVolume) {
     // Calculate the distance between the listener and the emitter
