@@ -2,7 +2,7 @@ import restart from 'vite-plugin-restart';
 import {defineConfig} from 'vite'
 
 export default defineConfig({
-    base: '',
+    base: '/rc-car-simulator/',
     root: 'src/', // Sources files
     publicDir: '../static/', // Path from "root" to static assets
     server:
