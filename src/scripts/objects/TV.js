@@ -6,13 +6,16 @@ import proximityVolume from "../utils/proximityVolume.js";
 /**
  * Controls for the radio in the LivingRoom scene
  * @class TV
- * @property {Object} tvObject the object containing information about the tv such as mesh and position
- * @property {Object} listener the object where the audio is heard from (typically camera)
- * @property {THREE.Scene} scene the three.js scene
  */
 export default class TV {
-    constructor(tvObject, camera, scene) {
-        this.camera = camera;
+    /**
+     * Create the TV
+     * @param {Object} tvObject The object containing information about the tv such as mesh and position
+     * @param {Object} listener The object where the audio is heard from (typically camera)
+     * @param {THREE.Scene} scene The three.js scene
+     */
+    constructor(tvObject, listener, scene) {
+        this.listener = listener;
 
         // Create the video element and texture
         this.video = document.createElement('video');
@@ -37,10 +40,12 @@ export default class TV {
         this.screen.rotateY(Math.PI / 2);
         scene.add(this.screen);
 
+        // Hide the original screen
         if (tvObject.mesh) {
             tvObject.mesh.visible = false;
         }
 
+        // Setup proximity audio
         this._setupProximityAudio();
         this.isPlaying = false;
     }
@@ -50,19 +55,29 @@ export default class TV {
      * @protected
      */
     _setupProximityAudio() {
+        // Add video audio to Tone.Player
         this.audio = new Tone.Player({
             url: "video/jerma_the_saga.mp4",
             loop: true,
         }).toDestination();
 
+        // Set volume
         this.audio.volume.value = -10;
 
+        // Attach to gainNode to control volume
         this.gainNode = new Tone.Gain(1).toDestination();
         this.audio.connect(this.gainNode);
     }
 
+    /**
+     * Pause and play the video
+     * @public
+     */
     toggleVideo() {
+        // Change playing state
         this.isPlaying = !this.isPlaying;
+
+        // Toggle play and pause
         if (this.isPlaying) {
             this.video.play();
             this.audio.start(0, this.video.currentTime);
@@ -70,10 +85,14 @@ export default class TV {
             this.video.pause();
             this.audio.stop();
         }
-        this.isPlaying ? this.video.play() : this.video.pause();
     }
 
+    /**
+     * Update function to run every frame
+     * @public
+     */
     update() {
-        if (this.isPlaying) proximityVolume(this.screen.position, this.camera, this.gainNode, 0.8);
+        // Update proximity volume of TV
+        if (this.isPlaying) proximityVolume(this.screen.position, this.listener, this.gainNode, 0.8);
     }
 }

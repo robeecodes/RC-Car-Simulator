@@ -5,10 +5,13 @@ import proximityVolume from "../utils/proximityVolume.js";
 /**
  * Controls for the radio in the LivingRoom scene
  * @class Radio
- * @property {Object} radioObject the object containing information about the radio such as mesh and position
- * @property {Object} listener the object where the audio is heard from (typically camera)
  */
 export default class Radio {
+    /**
+     * Create the radio
+     * @param {Object} radioObject The object containing information about the radio such as mesh and position
+     * @param {Object} listener The object where the audio is heard from (typically camera)
+     */
     constructor(radioObject, listener) {
         // Assign parameters
         this.radioObject = radioObject;
