@@ -113,7 +113,7 @@ select {
 #closeEditor {
   position: fixed;
   top: 1rem;
-  left: 1rem;
+  right: 1rem;
 }
 
 #roadPieces {
@@ -139,6 +139,22 @@ select {
   margin: 0 auto;
 }
 
+#editInfo {
+  position: fixed;
+  left: 1rem;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  max-width: 35vw;
+
+  background-color: hsla(210, 11%, 15%, 0.75);
+  backdrop-filter: blur(20px);
+}
+
+#editInfo * {
+  background-color: hsla(210, 11%, 15%, 0);
+}
+
 .modal {
   pointer-events: none;
 }
@@ -151,7 +167,7 @@ select {
   pointer-events: none;
 }
 
-@media only screen and (max-width: 50em) {
+@media only screen and (max-width: 53em) {
   #overlay {
     display: flex;
     flex-direction: column;
@@ -179,5 +195,14 @@ select {
   #roadPieces {
     top: 4rem;
     width: 90vw;
+  }
+  #editInfo {
+    left: 50%;
+    top: initial;
+    bottom: 0;
+    transform: translate(-50%, 0);
+
+    max-width: initial;
+    width: 98vw;
   }
 }

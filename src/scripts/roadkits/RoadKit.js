@@ -3,6 +3,7 @@ import * as CANNON from "cannon-es";
 import {ShapeType, threeToCannon} from "three-to-cannon";
 import destroyThreeMesh, {destroyMaterial} from "../utils/destroyThreeMesh.js";
 import destroyCannonBody from "../utils/destroyCannonBody.js";
+import {addUIElement, removeUIElement} from "../ui/UITools.js";
 
 /**
  * Class containing the information for the editable tiles in the world
@@ -299,7 +300,24 @@ export default class RoadKit {
         closeButton.innerText = 'Close Editor';
 
         // Append the button to the document body
-        document.body.appendChild(closeButton);
+        addUIElement(closeButton);
+
+        // Create the instructions
+        const editInfo = document.createElement('div');
+        editInfo.className = 'text-light p-3 rounded-1';
+        editInfo.id = 'editInfo';
+        editInfo.innerHTML =
+            `<p class="lead">Tile Editor Instructions:</p>
+            <ul class="list-group text-light">
+                <li class="list-group-item text-light">Click a road tile on the rug and move your mouse to move it.</li>
+                <li class="list-group-item text-light">Click a tile button to create a new tile.</li>
+                <li class="list-group-item text-light">Click again to place the tile. This will delete any tiles in its position.</li>
+                <li class="list-group-item text-light">While a tile is selected, press A or D to rotate it.</li>
+                <li class="list-group-item text-light">Press Delete to remove a selected tile.</li>
+            </ul>`
+
+        // Append the instructions to the document body
+        addUIElement(editInfo);
 
         // Create the tile selection buttons
         const tileSelection = document.createElement('div');
@@ -316,7 +334,7 @@ export default class RoadKit {
             <button type="button" id="SlantHigh" class="btn btn-lg btn-dark fs-6 fw-bolder"><img src="img/road_slant.webp" alt="Slant Piece">Slant Piece</button>`;
 
         // Append the tile selection buttons to the document body
-        document.body.appendChild(tileSelection);
+        addUIElement(tileSelection);
 
         // Loop through the tile selection buttons and add listeners
         Object.entries(this.tiles).forEach(([id, tileType]) => {
@@ -402,8 +420,12 @@ export default class RoadKit {
 
         // Remove the closeButton
         const closeButton = document.querySelector('#closeEditor');
-        document.body.removeChild(closeButton);
+        removeUIElement(closeButton);
         closeButton.removeEventListener('click', this._deleteEditorUI);
+
+        // Remove the instructions
+        const editInfo = document.getElementById('editInfo');
+        removeUIElement(editInfo);
 
         // Stop mouse events
         const threeCanvas = document.querySelector("canvas");
@@ -418,7 +440,7 @@ export default class RoadKit {
 
         // Remove tile buttons
         const tileSelection = document.querySelector('#roadPieces');
-        document.body.removeChild(tileSelection);
+        removeUIElement(tileSelection);
 
         // Remove keydown events
         window.removeEventListener('keydown', this._handleKeydownBound);
