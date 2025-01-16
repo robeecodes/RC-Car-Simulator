@@ -11,6 +11,14 @@ import {addUIElement, removeUIElement} from "../ui/UITools.js";
  * @class RoadKit
  */
 export default class RoadKit {
+    /**
+     * Create a RoadKit
+     * @param {THREE.Scene} scene The Three.js scene
+     * @param {CANNON.World} physicsWorld The cannon-es physics world
+     * @param {CANNON.Material} groundMaterial The cannon-es ground material
+     * @param {THREE.PerspectiveCamera} camera The Three.js camera for the scene
+     * @param {Number} tileSize The size of each square tile
+     */
     constructor(scene, physicsWorld, groundMaterial, camera, tileSize = 0.5) {
         // Store scene information
         this.scene = scene;
@@ -46,9 +54,9 @@ export default class RoadKit {
 
     /**
      * Create the grid for the world storing the x,z position for each tile
-     * @param {number} rows the number of grid rows
-     * @param {number} cols the number of grid columns
-     * @param {THREE.Vector3} startPosition the first grid position in the top-left
+     * @param {number} rows The number of grid rows
+     * @param {number} cols The number of grid columns
+     * @param {THREE.Vector3} startPosition The first grid position in the top-left
      * @public
      */
     initialiseGrid(rows, cols, startPosition) {
@@ -174,7 +182,7 @@ export default class RoadKit {
 
     /**
      * Rotate slants to be diagonal
-     * @param {Object} col the cell containing the properties for the slant
+     * @param {Object} col The cell containing the properties for the slant
      * @protected
      */
     _rotateSlant(col) {
@@ -193,8 +201,8 @@ export default class RoadKit {
 
     /**
      * Rotate physics body
-     * @param {Object} target object containing the mesh and rotation amount
-     * @param {Number} rotationAmount the amount to rotate the body by on the y-axis
+     * @param {Object} target Object containing the mesh and rotation amount
+     * @param {Number} rotationAmount Ohe amount to rotate the body by on the y-axis
      * @protected
      */
     _rotatePhysicsBody(target, rotationAmount) {
@@ -217,8 +225,8 @@ export default class RoadKit {
 
     /**
      * Add physics body to a target
-     * @param {Object} target the cell containing the properties for the physics body
-     * @param {String} tag the name of the target
+     * @param {Object} target The cell containing the properties for the physics body
+     * @param {String} tag The name of the target
      * @protected
      */
     _addBody(target, tag) {
@@ -449,7 +457,7 @@ export default class RoadKit {
     /**
      * Create a new tile to add to the grid
      * @param e
-     * @param {String} tileType the type of tile to create
+     * @param {String} tileType The type of tile to create
      * @protected
      */
     _createTile(e, tileType) {
@@ -528,7 +536,7 @@ export default class RoadKit {
     /**
      * Add hover effect to tile with mouse over
      * @param e
-     * @param {Array} intersects
+     * @param {Array} intersects The array of detected raycast intersections
      * @protected
      */
     _hoverTile(e, intersects) {
@@ -575,7 +583,7 @@ export default class RoadKit {
     /**
      * Move the selected tile along the grid
      * @param e
-     * @param {Array} intersects
+     * @param {Array} intersects The array of detected raycast intersections
      * @protected
      */
     _moveTile(e, intersects) {
@@ -602,8 +610,8 @@ export default class RoadKit {
     /**
      * Roatate the selected tile
      * @param e
-     * @param {Object} target the tile to rotate
-     * @param {Number} rotateAmount the amount to rotate the tile
+     * @param {Object} target The tile to rotate
+     * @param {Number} rotateAmount The amount to rotate the tile
      * @protected
      */
     _rotateTile = (e, target, rotateAmount) => {
@@ -674,7 +682,7 @@ export default class RoadKit {
 
     /**
      * Change the cell to match the selected tile
-     * @param {Array} cell the coordinates of the grid cell
+     * @param {Array} cell The coordinates of the grid cell
      * @protected
      */
     _replaceCell(cell) {
@@ -691,8 +699,8 @@ export default class RoadKit {
 
     /**
      * Retrieve a grid cell based on a given (x,z) coordinate
-     * @param {Number} x the x coordinate of the cell
-     * @param {Number} z the z coordinate of the cell
+     * @param {Number} x The x coordinate of the cell
+     * @param {Number} z The z coordinate of the cell
      * @returns {number[]|null}
      * @protected
      */
@@ -720,8 +728,8 @@ export default class RoadKit {
 
     /**
      * Snap tiles to the grid
-     * @param {Number} x the x coordinate of the cell
-     * @param {Number} z the z coordinate of the cell
+     * @param {Number} x The x coordinate of the cell
+     * @param {Number} z The z coordinate of the cell
      * @returns {null|THREE.Vector3}
      * @private
      */
