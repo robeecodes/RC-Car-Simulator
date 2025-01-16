@@ -319,7 +319,7 @@ export default class RoadKit {
             <ul class="list-group text-light">
                 <li class="list-group-item text-light">Click a road tile on the rug and move your mouse to move it.</li>
                 <li class="list-group-item text-light">Click a tile button to create a new tile.</li>
-                <li class="list-group-item text-light">Click again to place the tile. This will delete any tiles in its position.</li>
+                <li class="list-group-item text-light">Click on the rug to place the tile. This will delete any tiles in its position.</li>
                 <li class="list-group-item text-light">While a tile is selected, press A or D to rotate it.</li>
                 <li class="list-group-item text-light">Press Delete to remove a selected tile.</li>
             </ul>`
