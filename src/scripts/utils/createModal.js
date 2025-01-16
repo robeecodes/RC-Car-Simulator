@@ -1,6 +1,14 @@
 import * as bootstrap from 'bootstrap'
 
+/**
+ * Create modals for interactables
+ * @param {String} object The object which the modal relates to
+ * @param {String} content What the modal should say
+ * @returns {Modal}
+ * @public
+ */
 export default function createModal(object, content) {
+    // Create the HTML for the modal
     const modalHTML = `
     <div class="modal" id="${object}Modal" tabindex="-1" aria-labelledby="${object}Modal" aria-hidden="true">
       <div class="modal-dialog">
