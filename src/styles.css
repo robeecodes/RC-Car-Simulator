@@ -1,0 +1,179 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+a,
+button,
+input,
+select {
+  pointer-events: auto;
+}
+
+#overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+#overlay #title {
+  position: absolute;
+  bottom: 8rem;
+}
+
+#overlay #title h1 {
+  font-size: clamp(5rem, calc(5rem + ((1vw - 0.48rem) * 4.1667)), 8rem);
+  min-height: 0vw;
+  font-weight: bold;
+}
+
+#overlay #start {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+}
+
+#overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  position: absolute;
+}
+
+#overlay .btn {
+  background-color: #1da313;
+  color: white;
+  border-color: black;
+  border-width: 0.2rem 0.3rem 0.4rem 0.2rem;
+
+  transition: all .2s ease-in-out;
+}
+
+#overlay .btn:hover {
+  background-color: #38cd30;
+  color: #212529;
+  border-width: 0.1rem;
+  transform: scale(1.1);
+}
+
+/* Style carSelect radios */
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type=radio] + img {
+  cursor: pointer;
+  object-fit: contain;
+  width: 8rem;
+  height: 8rem;
+
+  background-color: #3f3f3f;
+}
+
+[type=radio]:checked + img {
+  outline: 2px solid #f00;
+}
+
+#notSupported {
+  width: 50%;
+  margin: auto;
+  background-color: #f00;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+#closeEditor {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
+
+#roadPieces {
+  display: flex;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 15vh;
+  width: 50vw;
+
+  overflow-x: scroll;
+}
+
+#roadPieces button {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#roadPieces button img {
+  height: 50%;
+  margin: 0 auto;
+}
+
+.modal {
+  pointer-events: none;
+}
+
+.modal.show {
+  pointer-events: none;
+}
+
+.modal * {
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 50em) {
+  #overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #overlay #title {
+    position: initial;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #overlay #start {
+    position: initial;
+  }
+
+  #closeEditor {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  #roadPieces {
+    top: 4rem;
+    width: 90vw;
+  }
+}
