@@ -1,5 +1,10 @@
-# rc-car-simulator
- Prototype of an RC Car Simulator created using THREE.js and CANNON.js 
+# RC Car Simulator
+Prototype of an RC Car Simulator created using THREE.js and CANNON.js 
+
+## Concept
+_Digital Bobs_ is a fictional digital media agency looking to expand their market following a drop in sales due to COVID-19 lockdowns. They specialise in creating advanced, experimental interactive 3d experiences, particularly simulations, digital games and digital gadgets.
+
+This prototype is created as a proof-of-concept for fictional gadget retailer, _The Cave_, who, similar to _Digital Bobs_ is looking for new ways to engage with their customer base following shop closures during COVID-19 lockdowns. They sell high-end, expensive gadgets, so it's harder to sell them online where people can't test them first. This is where the concept of a virtual simulation for their products was born, to help their customers trust their offering and even attract newer customers who may have never had a local shop to visit. _Digital Bobs_ has produced this prototype to prove their capabilities with creating such simulations, starting with _The Cave's_ remote-controlled car range.
 
 ## Attributions
 
