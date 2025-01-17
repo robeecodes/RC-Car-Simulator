@@ -512,13 +512,13 @@ export default class Car {
      */
     _createEngineNoise() {
         // Create a player for engine noise
-        this.engine = new Tone.Player("sfx/engine.mp3").toDestination();
-        // Set volume
-        this.engine.volume.value = -12;
-        this.engine.loop = true;
-        // Connect to gain node to control proximity audio
-        this.engine.connect(this.gainNode);
-        this.engine.start();
+        this.engine = new Tone.Player("sfx/engine.mp3", () => {
+            // Set volume
+            this.engine.volume.value = -12;
+            this.engine.loop = true;
+            // Connect to gain node to control proximity audio
+            this.engine.connect(this.gainNode);
+        }).toDestination();
     }
 
     /**

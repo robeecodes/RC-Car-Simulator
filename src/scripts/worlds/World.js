@@ -282,6 +282,7 @@ export default class World {
      */
     _start() {
         this.isLoaded = true;
+        this.car.engine.start();
     }
 
     /**

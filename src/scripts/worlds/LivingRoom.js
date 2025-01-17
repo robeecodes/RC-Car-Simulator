@@ -140,6 +140,8 @@ export default class LivingRoom extends World {
         // Wait for assets to load before proceeding
         const checkLoaded = () => {
             if ((this.radio && this.radio.isLoaded) && (this.tv && this.tv.isLoaded)) {
+                // Start car engine
+                this.car.engine.start();
                 this.isLoaded = true;
             } else {
                 requestAnimationFrame(checkLoaded); // Check again in the next frame
