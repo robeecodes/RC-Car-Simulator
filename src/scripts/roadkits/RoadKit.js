@@ -455,6 +455,31 @@ export default class RoadKit {
         window.removeEventListener('keydown', this._handleKeydownBound);
     }
 
+    _addColourOverlay(tile) {
+        tile.children.forEach((child) => {
+            // Store the original material to restore later
+            this.originalMaterials.push(child.material);
+            // Create new red material and assign it
+            const newMaterial = child.material.clone();
+            newMaterial.emissive = new THREE.Color(0xff0000);
+            newMaterial.emissiveIntensity = 0.1;
+            child.material = newMaterial;
+        });
+        this.hoveredTile = tile;
+    }
+
+    _removeColourOverlay(tile) {
+        tile.children.forEach((child, i) => {
+            // For each child, remove its new material and restore the original
+            destroyMaterial(child.material);
+            child.material = this.originalMaterials[i];
+        });
+
+        // Now there is no hovered tile
+        this.hoveredTile = null;
+        this.originalMaterials = [];
+    }
+
     /**
      * Create a new tile to add to the grid
      * @param e
@@ -479,16 +504,12 @@ export default class RoadKit {
         this.selectedTile.mesh = this.selectedTile.tile.mesh.clone();
         this.selectedTile.mesh.position.set(this.selectedTile.position.x, this.selectedTile.position.y, this.selectedTile.position.z);
 
-        // Make new tile green
-        this.selectedTile.mesh.children.forEach((child) => {
-            // Store the original material to restore later
-            this.originalMaterials.push(child.material);
-            // Create new red material and assign it
-            const newMaterial = child.material.clone();
-            newMaterial.emissive = new THREE.Color(0x00ff00);
-            newMaterial.emissiveIntensity = 0.1;
-            child.material = newMaterial;
-        });
+        if (this.hoveredTile) {
+            this._removeColourOverlay(this.hoveredTile);
+        }
+
+        this._addColourOverlay(this.selectedTile.mesh);
+
         this.scene.add(this.selectedTile.mesh);
 
         // Add a physics body for specific tile types if needed
@@ -536,11 +557,6 @@ export default class RoadKit {
                     return;
                 }
 
-                // Turn selectedtile green
-                this.selectedTile.mesh.children.forEach((child, i) => {
-                    child.material.emissive = new THREE.Color(0x00ff00);
-                });
-
                 // Store the cell the tile was grabbed from
                 this.selectedTile.cell = cell;
 
@@ -564,15 +580,7 @@ export default class RoadKit {
         // If the tile currently being hovered is different from previous, remove hover effects from previous
         if (intersection.parent !== this.hoveredTile) {
             if (this.hoveredTile) {
-                this.hoveredTile.children.forEach((child, i) => {
-                    // For each child, remove its new material and restore the original
-                    destroyMaterial(child.material);
-                    child.material = this.originalMaterials[i];
-                });
-
-                // Now there is no hovered tile
-                this.hoveredTile = null;
-                this.originalMaterials = [];
+                this._removeColourOverlay(this.hoveredTile);
             }
         }
 
@@ -580,15 +588,7 @@ export default class RoadKit {
         if (isTile) {
             // Pointer set to cursor to show you can click the tile
             document.body.style.cursor = "pointer";
-            intersection.parent.children.forEach((child) => {
-                // Store the original material to restore later
-                this.originalMaterials.push(child.material);
-                // Create new red material and assign it
-                const newMaterial = child.material.clone();
-                newMaterial.emissive = new THREE.Color(0xff0000);
-                newMaterial.emissiveIntensity = 0.1;
-                child.material = newMaterial;
-            });
+            this._addColourOverlay(intersection.parent);
             // Reference hovered tile
             this.hoveredTile = intersection.parent;
         } else {
@@ -666,16 +666,8 @@ export default class RoadKit {
         this.selectedTile.mesh.position.set(finalPosition.x, this.selectedTile.mesh.position.y, finalPosition.z);
 
         // Ensure any overlay is removed
-        if (this.originalMaterials !== []) {
-            this.selectedTile.mesh.children.forEach((child, i) => {
-                // For each child, remove its new material and restore the original
-                destroyMaterial(child.material);
-                child.material = this.originalMaterials[i];
-            });
-
-            // Now there is no hovered tile
-            this.hoveredTile = null;
-            this.originalMaterials = [];
+        if (this.originalMaterials.length > 0) {
+            this._removeColourOverlay(this.selectedTile.mesh);
         }
 
         // Place the physics body and remove any applied forces
