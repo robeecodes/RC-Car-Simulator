@@ -33,26 +33,27 @@ h1 {
   font-family: 'Bungee Inline', display, sans-serif;
 }
 
+/* Overwriting the bootstrap styles */
 h2, p.lead, button, .btn, .electro-text {
-  font-family: 'Electrolize', sans-serif;
+  font-family: 'Electrolize', sans-serif !important;
 }
 
 .btn-primary {
-  background-color: #1da313;
-  color: white;
-  border-color: black;
-  border-width: 0.2rem 0.3rem 0.4rem 0.2rem;
+  background-color: #1da313 !important;
+  color: white !important;
+  border-color: black !important;
+  border-width: 0.2rem 0.3rem 0.4rem 0.2rem !important;
 
-  transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out !important;
 }
 
 .btn-primary:hover {
-  background-color: #38cd30;
-  color: #212529;
-  border-width: 0.1rem;
-  transform: scale(1.1);
-  border-color: #000;
-  font-weight: bold;
+  background-color: #38cd30 !important;
+  color: #212529 !important;
+  border-width: 0.1rem !important;
+  transform: scale(1.1) !important;
+  border-color: #000 !important;
+  font-weight: bold !important;
 }
 
 .text-info {
