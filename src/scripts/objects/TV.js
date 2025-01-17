@@ -77,17 +77,22 @@ export default class TV {
      * Pause and play the video
      * @public
      */
-    toggleVideo() {
-        // Change playing state
-        this.isPlaying = !this.isPlaying;
-
-        // Toggle play and pause
-        if (this.isPlaying) {
-            this.video.play();
-            this.audio.start(0, this.video.currentTime);
+    async toggleVideo() {
+        // Try to play the video if it's paused
+        if (!this.isPlaying) {
+            try {
+                await this.video.play().then(async () => {
+                    this.audio.start(0, this.video.currentTime);
+                    this.isPlaying = true;
+                });
+            } catch (error) {
+                this.isPlaying = false;
+            }
         } else {
+            // Pause the video if it's playing
             this.video.pause();
             this.audio.stop();
+            this.isPlaying = false;
         }
     }
 
