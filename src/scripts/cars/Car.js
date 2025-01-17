@@ -361,11 +361,6 @@ export default class Car {
             this.vehicle.setWheelForce(this.maxForce, 1);
             this.vehicle.setWheelForce(this.maxForce, 2);
             this.vehicle.setWheelForce(this.maxForce, 3);
-            // If no engine sound is playing, start playing
-            if (!this.engineRunning) {
-                this.engine.start();
-                this.engineRunning = true;
-            }
         }
 
         // Reverse when pressing S or Arrow Down
@@ -374,11 +369,6 @@ export default class Car {
             this.vehicle.setWheelForce(-this.maxForce, 1);
             this.vehicle.setWheelForce(-this.maxForce, 2);
             this.vehicle.setWheelForce(-this.maxForce, 3);
-            // If no engine sound is playing, start playing
-            if (!this.engineRunning) {
-                this.engine.start();
-                this.engineRunning = true;
-            }
         }
 
         // If car is not accelerating or decelerating, stop applying force to wheels
@@ -387,14 +377,6 @@ export default class Car {
             this.vehicle.setWheelForce(0, 1);
             this.vehicle.setWheelForce(0, 2);
             this.vehicle.setWheelForce(0, 3);
-            // If the engine is playing, stop it
-            if (this.engineRunning) {
-                this.engine.stop();
-                // Brief timeout to ensure the player has stopped
-                setTimeout(() => {
-                    this.engineRunning = false;
-                }, 200);
-            }
         }
 
         // Steer left when pressing A or Arrow Left
@@ -536,6 +518,7 @@ export default class Car {
         this.engine.loop = true;
         // Connect to gain node to control proximity audio
         this.engine.connect(this.gainNode);
+        this.engine.start();
     }
 
     /**
