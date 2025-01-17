@@ -19,6 +19,7 @@ export default class Radio {
         this.currentStationIndex = 0;
         this.isPlaying = true;
         this.radioPosition = this.radioObject.position;
+        this.isLoaded = false;
 
         // Load radio stations
         this.stations = [
@@ -30,6 +31,7 @@ export default class Radio {
         // When all stations are loaded, set up the proximity audio
         Tone.loaded().then(() => {
             this._setupProximityAudio();
+            this.isLoaded = true;
         });
     }
 

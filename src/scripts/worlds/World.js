@@ -46,10 +46,6 @@ export default class World {
         // Reference the camera
         this.camera = camera;
 
-        this.loader = loader;
-
-        this.physicsWorld = physicsWorld;
-
         // Reference the car once it's created
         this.car = null
 
@@ -73,7 +69,6 @@ export default class World {
             const checkCarLoaded = () => {
                 if (this.car && this.car.isLoaded) {
                     this._start();
-                    this.isLoaded = true;
                 } else {
                     requestAnimationFrame(checkCarLoaded); // Check again in the next frame
                 }
@@ -286,7 +281,7 @@ export default class World {
      * @protected
      */
     _start() {
-
+        this.isLoaded = true;
     }
 
     /**

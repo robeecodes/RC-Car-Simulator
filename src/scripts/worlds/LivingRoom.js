@@ -137,6 +137,16 @@ export default class LivingRoom extends World {
         // Create tv and radio
         this.radio = new Radio(this.objects["Radio"], this.camera);
         this.tv = new TV(this.objects["TVScreen"], this.camera, this.scene);
+        // Wait for assets to load before proceeding
+        const checkLoaded = () => {
+            if ((this.radio && this.radio.isLoaded) && (this.tv && this.tv.isLoaded)) {
+                this.isLoaded = true;
+            } else {
+                requestAnimationFrame(checkLoaded); // Check again in the next frame
+            }
+        };
+
+        checkLoaded();
     }
 
     /**

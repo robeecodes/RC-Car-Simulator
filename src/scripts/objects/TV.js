@@ -16,6 +16,7 @@ export default class TV {
      */
     constructor(tvObject, listener, scene) {
         this.listener = listener;
+        this.isLoaded = false;
 
         // Create the video element and texture
         this.video = document.createElement('video');
@@ -45,8 +46,17 @@ export default class TV {
             tvObject.mesh.visible = false;
         }
 
-        // Setup proximity audio
-        this._setupProximityAudio();
+        // Add video audio to Tone.Player
+        this.audio = new Tone.Player({
+            url: "video/jerma_the_saga.mp4",
+            loop: true,
+        }).toDestination();
+
+        Tone.loaded().then(() => {
+            this._setupProximityAudio();
+            this.isLoaded = true;
+        });
+
         this.isPlaying = false;
     }
 
@@ -55,11 +65,6 @@ export default class TV {
      * @protected
      */
     _setupProximityAudio() {
-        // Add video audio to Tone.Player
-        this.audio = new Tone.Player({
-            url: "video/jerma_the_saga.mp4",
-            loop: true,
-        }).toDestination();
 
         // Set volume
         this.audio.volume.value = -10;

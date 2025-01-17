@@ -115,21 +115,24 @@ function toGuide(e) {
  * Load all entities for the world and car
  */
 function loadEntities() {
+    guide.innerHTML = `<p>Now Loading...</p> 
+                        <div class="spinner-border" role="status">
+                        </div>`;
     world = new LivingRoom(gltfLoader, scene, physicsWorld, groundMaterial, camera, () => {
         world.car = new car(gltfLoader, scene, physicsWorld, world.carStart, wheelMaterial, camera);
     });
 
-    const threeLoaderPromise =
-        new Promise((resolve) => {
-            loadingManager.onLoad = () => {
-                resolve();
-            };
-        });
+    const checkLoaded = () => {
+        if (world.isLoaded) {
+            UITools.removeUIElement(guide);
+            // Add renderer to the document
+            document.body.appendChild(renderer.domElement);
+        } else {
+            requestAnimationFrame(checkLoaded); // Check again in the next frame
+        }
+    };
 
-    // Wait for loading manager and Tone to be loaded
-    Promise.all([threeLoaderPromise, Tone.loaded()]).then(() => {
-        UITools.removeUIElement(guide);
-    });
+    checkLoaded();
 }
 
 /**
@@ -177,10 +180,9 @@ function init() {
     groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
     physicsWorld.addBody(groundBody);
 
-    //specify our renderer and add it to our document
+    //specify our renderer
     renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
 
     // lighting
     colour = 0xffffff;

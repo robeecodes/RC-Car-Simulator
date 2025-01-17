@@ -87,18 +87,17 @@ export default class Car {
 
             // Wait for vehicle to load before proceeding
             const checkVehicleLoaded = () => {
-                if (this.chassis && this.isLoaded) {
+                if (this.chassis) {
+                    // Configure honk and engine noise
+                    this._createHonk();
+                    this._createEngineNoise();
+                    this._createCollisionNoise();
                     this.isLoaded = true;
                 } else {
                     requestAnimationFrame(checkVehicleLoaded); // Check again in the next frame
                 }
             };
             checkVehicleLoaded();
-
-            // Configure honk and engine noise
-            this._createHonk();
-            this._createEngineNoise();
-            this._createCollisionNoise();
         });
     }
 
@@ -285,6 +284,25 @@ export default class Car {
 
         // Add the vehicle to the physics world
         this.vehicle.addToWorld(physicsWorld);
+
+        this._syncToPhysics();
+    }
+
+    /**
+     * Sync models to their physics body
+     * @protected
+     */
+    _syncToPhysics() {
+        // Sync the chassis
+        this.models.chassis.mesh.position.copy(this.chassis.position);
+        this.models.chassis.mesh.quaternion.copy(this.chassis.quaternion);
+
+        // Sync each wheel mesh with the wheel body
+        this.vehicle.wheelBodies.forEach((wheelBody, index) => {
+            const wheelMesh = this.models.wheels[index].mesh
+            wheelMesh.position.copy(wheelBody.position);
+            wheelMesh.quaternion.copy(wheelBody.quaternion);
+        });
     }
 
     /**
@@ -330,7 +348,6 @@ export default class Car {
 
         // Save instance
         Car.instance = this;
-        this.isLoaded = true;
     }
 
     /**
@@ -573,23 +590,14 @@ export default class Car {
      * @public
      */
     update() {
-        // Do nothing if the care isn't load
+        // Do nothing if the car isn't loaded
         if (!this.isLoaded) return;
 
         // Drive is enabled
         if (this.isDriving) this._drive();
 
         // Sync models to their physics body
-        // Sync the chassis
-        this.models.chassis.mesh.position.copy(this.chassis.position);
-        this.models.chassis.mesh.quaternion.copy(this.chassis.quaternion);
-
-        // Sync each wheel mesh with the wheel body
-        this.vehicle.wheelBodies.forEach((wheelBody, index) => {
-            const wheelMesh = this.models.wheels[index].mesh
-            wheelMesh.position.copy(wheelBody.position);
-            wheelMesh.quaternion.copy(wheelBody.quaternion);
-        });
+        this._syncToPhysics();
 
         // Control proximity volume between car and camera
         proximityVolume(this.chassis.position, this.camera, this.gainNode, -0.3);
