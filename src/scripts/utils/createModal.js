@@ -10,7 +10,7 @@ import * as bootstrap from 'bootstrap'
 export default function createModal(object, content) {
     // Create the HTML for the modal
     const modalHTML = `
-    <div class="modal" id="${object}Modal" tabindex="-1" aria-labelledby="${object}Modal" aria-hidden="true">
+    <div class="modal" id="${object}Modal" tabindex="-1" aria-labelledby="${object}Modal" aria-hidden="true" inert>
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body bg-dark text-center text-light fs-3">

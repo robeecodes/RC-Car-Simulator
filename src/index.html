@@ -9,13 +9,14 @@
 </head>
 
 <body>
+<!--Initial overlay showing splash screen-->
 <div id="overlay">
-    <img src="img/rc-cover.webp" alt="rc car simulator cover image" />
+    <img src="img/rc-cover.webp" alt="rc car simulator cover image"/>
     <div id="title" class="p-5 text-light">
-        <h1>RC Car Simulator</h1>
+        <h1 class="display-1">RC Car Simulator</h1>
         <div class="d-flex flex-row align-items-center">
-            <p class="ms-3">Created by:</p>
-            <p class="fs-1 font-monospace ms-3">Digital Bobs</p>
+            <p class="ms-3 electro-text">Created by:</p>
+            <p class="fs-1 ms-3 electro-text">Digital Bobs</p>
         </div>
     </div>
     <div id="start" class="p-1 p-md-5 text-light">
@@ -23,6 +24,7 @@
     </div>
 </div>
 
+<!--World selection screen-->
 <div id="worldSelect">
     <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center bg-dark text-light p-5">
         <div class="row flex-column flex-lg-row">
@@ -31,18 +33,23 @@
             </div>
             <div class="col d-flex flex-column justify-content-center">
                 <h1 class="fw-bold">Welcome</h1>
-                <p>Digital Bobs is excited to announce our partnership with <em>The Cave</em> to promote their new range of remote-controlled cars.</p>
-                <p>When you try our brand new RC Car Simulator, you can test real, on-the-market gadgets in a realistic virtual environment.</p>
-                <p>For this demo version of our RC Car Simulator, you can test your chosen car in a living room-inspired environment.</p>
+                <p>Digital Bobs is excited to announce our partnership with <em>The Cave</em> to promote their new range
+                    of remote-controlled cars.</p>
+                <p>When you try our brand new RC Car Simulator, you can test real, on-the-market gadgets in a realistic
+                    virtual environment.</p>
+                <p>For this demo version of our RC Car Simulator, you can test your chosen car in a living room-inspired
+                    environment.</p>
                 <p>Future versions will include new areas based on user feedback.</p>
                 <div class="align-self-lg-end align-self-center">
-                    <button type="button" id="confirmWorld" class="btn btn-lg btn-primary px-5 fs-4 fw-bold">Proceed</button>
+                    <button type="button" id="confirmWorld" class="btn btn-lg btn-primary px-5 fs-4 fw-bold">Proceed
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!--Car selection screen-->
 <div id="carSelect">
     <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center bg-dark text-light p-5">
         <div class="row flex-column flex-lg-row">
@@ -62,13 +69,16 @@
                 <div id="desc">
                     <div id="ferrori" class="carInfo mb-2">
                         <h2 class="text-center fw-bold">The Ferrori Mini Zoomer</h2>
-                        <p class="text-center my-1">The latest in mini sports car technology. Impress your friends with its versatile capabilities in multiple environments!</p>
-                        <p class="text-center lead mt-3">Available in-store now for £23.99</p>
+                        <p class="text-center my-1">The latest in mini sports car technology. Impress your friends with
+                            its versatile capabilities in multiple environments!</p>
+                        <p class="text-center lead mt-3">Available in-store now for <span
+                                class="text-info">£23.99</span></p>
                     </div>
                     <div id="truck" class="carInfo mb-2">
                         <h2 class="text-center fw-bold">The Micro Giga Truck</h2>
                         <p class="text-center my-1">Speed and power combined into one glorious mini truck.</p>
-                        <p class="text-center lead mt-3">Available in-store now for £28.99</p>
+                        <p class="text-center lead mt-3">Available in-store now for <span
+                                class="text-info">£28.99</span></p>
                     </div>
                 </div>
                 <div class="align-self-center">
@@ -80,6 +90,7 @@
     </div>
 </div>
 
+<!--Instructions screen-->
 <div id="guide"
      class="container-fluid min-vh-100 d-flex flex-column align-items-center justify-content-center bg-dark text-center text-light">
     <div id="info" class="mx-auto shadow-lg p-5 rounded-5">
@@ -87,13 +98,19 @@
         <ol class="list-group my-3 text-start">
             <li class="list-group-item bg-dark text-light">Move your car using WASD or the arrow keys</li>
             <li class="list-group-item bg-dark text-light">Honk using the spacebar</li>
-            <li class="list-group-item bg-dark text-light">Hold down left click and move your mouse to rotate the camera</li>
-            <li class="list-group-item bg-dark text-light">Hold down right click and move your mouse to move the camera</li>
+            <li class="list-group-item bg-dark text-light">Hold down left click and move your mouse to rotate the
+                camera
+            </li>
+            <li class="list-group-item bg-dark text-light">Hold down right click and move your mouse to move the
+                camera
+            </li>
             <li class="list-group-item bg-dark text-light">Use your scroll wheel to zoom in or out</li>
         </ol>
-        <p>Some objects in the scene are interactable! When your car approaches them, you will be notified with a popup.</p>
+        <p class="fw-bold">Some objects in the scene are interactable! When your car approaches them, you will be
+            notified with a popup.</p>
         <div class="alert alert-danger" role="alert">
-            This is an early demo of the simulator! If you face issues with the car getting stuck, please refresh the page. You can also refresh the page to restart the simulator.
+            This is an early demo of the simulator! If you face issues with the car getting stuck, please refresh the
+            page. You can also refresh the page to restart the simulator.
         </div>
         <button id="playButton" class="btn btn-lg btn-primary mt-3 px-5 display-6">Let's Go!</button>
     </div>

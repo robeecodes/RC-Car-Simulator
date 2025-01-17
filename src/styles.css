@@ -1,3 +1,6 @@
+@import url(https://fonts.bunny.net/css?family=bungee-inline:400|electrolize:400);
+
+/* General styling */
 * {
   box-sizing: border-box;
 }
@@ -26,39 +29,12 @@ select {
   pointer-events: auto;
 }
 
-#overlay {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-
-  width: 100vw;
-  height: 100vh;
+h1 {
+  font-family: 'Bungee Inline', display, sans-serif;
 }
 
-#overlay #title {
-  position: absolute;
-  bottom: 8rem;
-}
-
-#overlay #title h1 {
-  font-size: clamp(5rem, calc(5rem + ((1vw - 0.48rem) * 4.1667)), 8rem);
-  min-height: 0vw;
-  font-weight: bold;
-}
-
-#overlay #start {
-  position: absolute;
-  bottom: 3rem;
-  right: 3rem;
-}
-
-#overlay img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  position: absolute;
+h2, p.lead, button, .btn, .electro-text {
+  font-family: 'Electrolize', sans-serif;
 }
 
 .btn-primary {
@@ -77,6 +53,40 @@ select {
   transform: scale(1.1);
   border-color: #000;
   font-weight: bold;
+}
+
+.text-info {
+  color: #1da313 !important;
+}
+
+/* Style the initial overlay */
+#overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+#overlay #title {
+  position: absolute;
+  bottom: 8rem;
+}
+
+#overlay #start {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+}
+
+#overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  position: absolute;
 }
 
 /* Style carSelect radios */
@@ -106,6 +116,7 @@ select {
   box-shadow: rgba(29, 163, 19, 0.53) 0 8px 24px;
 }
 
+/* Style the instructions */
 #info {
   width: 80vw;
 }
@@ -117,6 +128,8 @@ select {
   margin-top: 20px;
   padding: 10px;
 }
+
+/* Roadkit tile editor styles */
 
 #closeEditor {
   position: fixed;
@@ -163,6 +176,7 @@ select {
   background-color: hsla(210, 11%, 15%, 0);
 }
 
+/* Interactable modal styles */
 .modal {
   pointer-events: none;
 }
@@ -175,6 +189,7 @@ select {
   pointer-events: none;
 }
 
+/* Media queries for responsiveness */
 @media only screen and (max-width: 53em) {
   #overlay {
     display: flex;

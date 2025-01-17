@@ -525,6 +525,11 @@ export default class RoadKit {
                     return;
                 }
 
+                // Turn selectedtile green
+                this.selectedTile.mesh.children.forEach((child, i) => {
+                    child.material.emissive = new THREE.Color(0x00ff00);
+                });
+
                 // Store the cell the tile was grabbed from
                 this.selectedTile.cell = cell;
 

@@ -14,7 +14,7 @@ export default function proximityVolume(emitterPosition, listener, gainNode, max
     const distance = emitterPosition.distanceTo(listenerPosition);
 
     // Adjust the volume based on distance
-    const maxDistance = 5;
+    const maxDistance = 3.5;
     const minVolume = -0.9;
 
     // Volume decreases as distance increases, but never lower than `minVolume`

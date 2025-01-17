@@ -10,6 +10,8 @@ import LivingRoom from "./scripts/worlds/LivingRoom.js";
 import Truck from "./scripts/cars/Truck.js";
 import * as UITools from "./scripts/ui/UITools.js";
 
+// Initialise global variables
+
 let scene, physicsWorld, camera, renderer, controls;
 let colour, intensity, light;
 let ambientLight;
@@ -24,12 +26,17 @@ let world, car;
 
 let groundMaterial, wheelMaterial;
 
+
+// Handle html overlays
 const {overlay, worldSelect, carSelect, guide} = UITools.getUIElements();
 
+// Only show splash screen to start
 UITools.removeUIElement(worldSelect);
 UITools.removeUIElement(carSelect);
 UITools.removeUIElement(guide);
 
+
+// When splash buton start is clicked, go to world select
 let startButton = document.getElementById("startButton");
 startButton.addEventListener("click", toWorldSelect);
 
@@ -45,6 +52,7 @@ function toWorldSelect(e) {
 
 let carButton, carChoice, descBox, descriptions;
 
+// When world button is clicked, go to car select
 function toCarSelect(e) {
     UITools.removeUIElement(worldSelect);
     UITools.addUIElement(carSelect);
@@ -57,12 +65,14 @@ function toCarSelect(e) {
     descriptions = document.querySelectorAll(".carInfo");
     descBox.innerHTML = '';
 
+    // Event listeners to track chosen car
     carChoice.forEach((choice, i) => {
         choice.addEventListener("click", changeCarDesc);
         if (choice.checked) descBox.appendChild(descriptions[i]);
     });
 }
 
+// Update car description based on selected car
 function changeCarDesc(e) {
     for (let i = 0; i < carChoice.length; i++) {
         if (carChoice[i].checked) {
@@ -74,10 +84,12 @@ function changeCarDesc(e) {
 
 let playButton;
 
+// When care button is clicked, go to instructions
 function toGuide(e) {
     carChoice.forEach((choice, i) => {
         choice.removeEventListener("click", changeCarDesc);
     });
+    // Set car based on chosen car
     for (let i = 0; i < carChoice.length; i++) {
         const item = carChoice[i];
         if (!item.checked) continue;
@@ -95,9 +107,13 @@ function toGuide(e) {
     UITools.addUIElement(guide);
     carButton.removeEventListener("click", toGuide);
     playButton = document.getElementById("playButton");
+    // When play button is clicked, run init
     playButton.addEventListener("click", init);
 }
 
+/**
+ * Load all entities for the world and car
+ */
 function loadEntities() {
     world = new LivingRoom(gltfLoader, scene, physicsWorld, groundMaterial, camera, () => {
         world.car = new car(gltfLoader, scene, physicsWorld, world.carStart, wheelMaterial, camera);
@@ -116,6 +132,9 @@ function loadEntities() {
     });
 }
 
+/**
+ * Initialise the scene
+ */
 function init() {
     // Tone
     Tone.start();
@@ -136,6 +155,7 @@ function init() {
     physicsWorld.defaultContactMaterial.friction = 0.2;
     physicsWorld.broadphase = new CANNON.SAPBroadphase(physicsWorld);
 
+    // cannon-es contact materials
     groundMaterial = new CANNON.Material("groundMaterial");
     wheelMaterial = new CANNON.Material("wheelMaterial");
     const wheelGroundContactMaterial = window.wheelGroundContactMaterial = new CANNON.ContactMaterial(wheelMaterial, groundMaterial, {
@@ -171,6 +191,7 @@ function init() {
     ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
     scene.add(ambientLight);
 
+    // Add camera
     camera = new THREE.PerspectiveCamera(
         75,
         window.innerWidth / window.innerHeight,
@@ -178,7 +199,8 @@ function init() {
         1000,
     );
 
-    camera.position.set(0, 0.66, 2.84);
+    camera.position.set(-1.7429902804941595, 0.7616083627313399, -1.7814849500234389);
+    camera.rotation.set(0, -Math.PI / 2, 0);
 
     scene.add(camera);
 
@@ -193,13 +215,16 @@ function init() {
     play();
 }
 
-// simple render function
+/**
+ * Render the Three.js scene
+ */
 function render() {
     renderer.render(scene, camera);
 }
 
-// start animating
-
+/**
+ * Play the Three.js scene
+ */
 function play() {
     renderer.setAnimationLoop(() => {
         update();
@@ -207,22 +232,30 @@ function play() {
     });
 }
 
+/**
+ * Update the Three.js scene
+ */
 function update() {
     deltaTime += clock.getDelta();
 
     if (deltaTime > interval) {
         physicsWorld.fixedStep();
+        // Check car and world are available before calling update
         if (world.car && world) {
             if (world.car.isLoaded && world.isLoaded) {
                 world.car.update();
                 world.update();
             }
         }
+        // Update orbit controls
         controls.update(deltaTime);
         deltaTime = deltaTime % interval;
     }
 }
 
+/**
+ * Window resize handler
+ */
 function onWindowResize() {
     //resize & align
     sceneHeight = window.innerHeight;

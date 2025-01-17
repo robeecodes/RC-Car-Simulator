@@ -6,7 +6,7 @@ import Car from "./Car.js";
  * @extends Car
  */
 export default class Truck extends Car {
-    constructor(loader, scene, physicsWorld, startPosition, wheelMaterial, camera, maxForce = 0.5, modelPath = 'models/vehicles/Truck.glb') {
+    constructor(loader, scene, physicsWorld, startPosition, wheelMaterial, camera, maxForce = 0.35, modelPath = 'models/vehicles/Truck.glb') {
         super(loader, scene, physicsWorld, startPosition, wheelMaterial, camera, maxForce, modelPath);
     }
 }
