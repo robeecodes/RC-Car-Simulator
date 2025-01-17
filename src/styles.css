@@ -173,6 +173,13 @@ h2, p.lead, button, .btn, .electro-text {
   backdrop-filter: blur(20px);
 }
 
+#editInfo button {
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+  float: right;
+}
+
 #editInfo * {
   background-color: hsla(210, 11%, 15%, 0);
 }

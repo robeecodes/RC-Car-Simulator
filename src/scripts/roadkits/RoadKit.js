@@ -316,7 +316,8 @@ export default class RoadKit {
         editInfo.className = 'text-light p-3 rounded-1';
         editInfo.id = 'editInfo';
         editInfo.innerHTML =
-            `<p class="lead">Tile Editor Instructions:</p>
+            `<button type="button" class="btn btn-danger" aria-label="Close">X</button>
+            <p class="lead">Tile Editor Instructions:</p>
             <ul class="list-group text-light">
                 <li class="list-group-item text-light">Click a road tile on the rug and move your mouse to move it.</li>
                 <li class="list-group-item text-light">Click a tile button to create a new tile.</li>
@@ -327,6 +328,10 @@ export default class RoadKit {
 
         // Append the instructions to the document body
         addUIElement(editInfo);
+
+        document.querySelector('#editInfo button').addEventListener('click', e => {
+            removeUIElement(editInfo);
+        });
 
         // Create the tile selection buttons
         const tileSelection = document.createElement('div');
@@ -432,9 +437,9 @@ export default class RoadKit {
         removeUIElement(closeButton);
         closeButton.removeEventListener('click', this._deleteEditorUI);
 
-        // Remove the instructions
+        // Remove the instructions if still open
         const editInfo = document.getElementById('editInfo');
-        removeUIElement(editInfo);
+        if (editInfo) removeUIElement(editInfo);
 
         // Stop mouse events
         const threeCanvas = document.querySelector("canvas");

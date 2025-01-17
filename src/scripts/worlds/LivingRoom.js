@@ -1,5 +1,6 @@
 import World from "./World.js";
 import * as THREE from "three";
+import * as Tone from "tone";
 import {GLTFLoader} from "three/addons";
 import * as CANNON from "cannon-es";
 import {Box3} from "three";
@@ -67,6 +68,10 @@ export default class LivingRoom extends World {
         // Add popup instruction for the remote
         this.interactables["Remote"].modal = createModal("Remote", `Press <strong>Q</strong> to play/pause the TV.`);
 
+        // remote click sound
+        const clickSynth = new Tone.MembraneSynth().toDestination();
+        clickSynth.volume.value = -36;
+
         // Handle interaction events
         document.addEventListener('keydown', (event) => {
             // When e is pressed
@@ -91,9 +96,11 @@ export default class LivingRoom extends World {
                 }
                 // Play the tv video if in range
                 if (document.getElementById('RemoteModal').classList.contains('show')) {
-                    this.tv.toggleVideo();
-                    // Automatically turn off the radio
-                    if (this.radio.isPlaying) this.radio.toggleRadio();
+                    clickSynth.triggerAttackRelease("C5", "8n");
+                    this.tv.toggleVideo().then(e => {
+                        // Automatically turn off the radio
+                        if (this.radio.isPlaying) this.radio.toggleRadio();
+                    });
                 }
             }
         });
