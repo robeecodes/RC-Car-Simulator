@@ -24,7 +24,7 @@ export default class Car {
      * @param {GLTFLoader} loader The GLTFLoader
      * @param {THREE.Scene} scene The Three.js scene
      * @param {CANNON.World} physicsWorld The cannon-es physics world
-     * @param {THREE.Vector3} startPosition The start position of the car
+     * @param {THREE.Vector3|CANNON.Vec3} startPosition The start position of the car
      * @param {CANNON.Material} wheelMaterial The physics material for the wheels
      * @param {THREE.PerspectiveCamera} camera The Three.js camera for the scene
      * @param {Number} maxForce The maximum force to apply to the car
@@ -73,13 +73,14 @@ export default class Car {
         // Audio
         // Configure gainNode to control gain
         this.gainNode = new Tone.Gain(1).toDestination();
-        // Flag if engine is running
-        this.engineRunning = false;
 
         // Configure collision frequency
         this.lastCollisionTime = 0;
 
         this.camera = camera;
+
+        // Check if engine is ready
+        this.engineReady = false;
 
         this._loadModel(loader, modelPath).then(() => {
             this._addPhysics(physicsWorld, wheelMaterial);
@@ -518,6 +519,7 @@ export default class Car {
             this.engine.loop = true;
             // Connect to gain node to control proximity audio
             this.engine.connect(this.gainNode);
+            this.engineReady = true;
         }).toDestination();
     }
 
@@ -526,6 +528,9 @@ export default class Car {
      * @protected
      */
     _updateEngineNoise() {
+        // Start engine if needed
+        if (this.engine.state === "stopped") this.engine.start();
+
         // Get the vehicle's speed
         const speed = this.chassis.velocity.length();
 
@@ -586,6 +591,6 @@ export default class Car {
         proximityVolume(this.chassis.position, this.camera, this.gainNode, -0.3);
 
         // If the engine player is ready, play engine noises
-        if (this.engine) this._updateEngineNoise();
+        if (this.engineReady) this._updateEngineNoise();
     }
 }
