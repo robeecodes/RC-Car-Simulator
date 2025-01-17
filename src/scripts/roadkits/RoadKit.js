@@ -455,6 +455,11 @@ export default class RoadKit {
         window.removeEventListener('keydown', this._handleKeydownBound);
     }
 
+    /**
+     * Add a colour overlay to a given tile
+     * @param {THREE.Group} tile The tile to overlay
+     * @protected
+     */
     _addColourOverlay(tile) {
         tile.children.forEach((child) => {
             // Store the original material to restore later
@@ -468,6 +473,11 @@ export default class RoadKit {
         this.hoveredTile = tile;
     }
 
+    /**
+     * Remove a colour overlay from a given tile
+     * @param {THREE.Group} tile The tile to overlay
+     * @protected
+     */
     _removeColourOverlay(tile) {
         tile.children.forEach((child, i) => {
             // For each child, remove its new material and restore the original
