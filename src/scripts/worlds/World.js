@@ -1,13 +1,13 @@
-/**
- * Abstract Class World.
- *
- * @class World
- */
 import * as THREE from "three";
 import * as CANNON from "cannon-es";
 import {ShapeType, threeToCannon} from "three-to-cannon";
 import RoadKit from "../roadkits/RoadKit.js";
 
+/**
+ * Abstract Class World.
+ *
+ * @class World
+ */
 export default class World {
     static instance = null;
 
@@ -57,7 +57,7 @@ export default class World {
             this._AssignInteractables();
             createCarCallback();
 
-            // Wait for care to load before proceeding
+            // Wait for car to load before proceeding
             const checkCarLoaded = () => {
                 if (this.car && this.car.isLoaded) {
                     this._Start();
@@ -208,6 +208,7 @@ export default class World {
 
     /**
      * Any additional operations which need to happen after all models are loaded and configured
+     * @protected
      */
     _Start() {
 

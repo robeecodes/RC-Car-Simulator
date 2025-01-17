@@ -70,23 +70,36 @@ export default class Car {
         this.isLoaded = false;
         this.model = null;
 
-        this._loadModel(loader, modelPath).then(() => {
-            this._addPhysics(physicsWorld, wheelMaterial);
-            this._createInstance(scene);
-            this.isLoaded = true;
-        });
-
-        this.camera = camera;
-
         // Audio
         // Configure gainNode to control gain
         this.gainNode = new Tone.Gain(1).toDestination();
         // Flag if engine is running
         this.engineRunning = false;
 
-        // Configure honk and engine noise
-        this._createHonk();
-        this._createEngineNoise();
+        // Configure collision frequency
+        this.lastCollisionTime = 0;
+
+        this.camera = camera;
+
+        this._loadModel(loader, modelPath).then(() => {
+            this._addPhysics(physicsWorld, wheelMaterial);
+            this._createInstance(scene);
+
+            // Wait for vehicle to load before proceeding
+            const checkVehicleLoaded = () => {
+                if (this.chassis && this.isLoaded) {
+                    this.isLoaded = true;
+                } else {
+                    requestAnimationFrame(checkVehicleLoaded); // Check again in the next frame
+                }
+            };
+            checkVehicleLoaded();
+
+            // Configure honk and engine noise
+            this._createHonk();
+            this._createEngineNoise();
+            this._createCollisionNoise();
+        });
     }
 
     /**
@@ -525,8 +538,34 @@ export default class Car {
         // Calculate the pitch/frequency for the engine noise
         const freq = Three.MathUtils.mapLinear(speed, minSpeed, maxSpeed, minFreq, maxFreq);
 
-        // Apply the calculated frequency to the synth
+        // Apply the calculated frequency to the player
         this.engine.playbackRate = freq;
+    }
+
+    /**
+     * Create the noise for when the car collides with other objects
+     * @protected
+     */
+    _createCollisionNoise() {
+        // Membrane synth to represent hit
+        this.collisionSynth = new Tone.MembraneSynth();
+        this.collisionSynth.volume.value = -24.0;
+        // Connect to gain node to control proximity audio
+        this.collisionSynth.connect(this.gainNode);
+
+        // Make collision sound on collision
+        this.chassis.addEventListener('collide', e => {
+            // Don't make sound when colliding with the tiles
+            if (e.body.name === "roadkit") return;
+            // Do nothing if car isn't moving fast
+            if (this.chassis.velocity.length() < 1.5) return;
+            // Prevent sound from triggering too frequently
+            const now = Tone.now();
+            if (now - this.lastCollisionTime > 0.1) { // 100ms minimum gap
+                this.collisionSynth.triggerAttackRelease("C2", "8n");
+                this.lastCollisionTime = now;
+            }
+        });
     }
 
     /**

@@ -61,7 +61,7 @@ select {
   position: absolute;
 }
 
-#overlay .btn {
+.btn-primary {
   background-color: #1da313;
   color: white;
   border-color: black;
@@ -70,11 +70,13 @@ select {
   transition: all .2s ease-in-out;
 }
 
-#overlay .btn:hover {
+.btn-primary:hover {
   background-color: #38cd30;
   color: #212529;
   border-width: 0.1rem;
   transform: scale(1.1);
+  border-color: #000;
+  font-weight: bold;
 }
 
 /* Style carSelect radios */
@@ -92,14 +94,20 @@ select {
   height: 8rem;
 
   background-color: #3f3f3f;
+
+  transition: all .2s ease-in-out;
 }
 
 [type=radio]:checked + img {
-  outline: 2px solid #f00;
+  outline: 0.5rem solid #1da313;
+}
+
+[type=radio]:not(:checked):hover + img {
+  box-shadow: rgba(29, 163, 19, 0.53) 0 8px 24px;
 }
 
 #info {
-  width: 50vw;
+  width: 80vw;
 }
 
 #notSupported {
@@ -186,6 +194,10 @@ select {
 
   #overlay #start {
     position: initial;
+  }
+
+  #info {
+    width: 90vw;
   }
 
   #closeEditor {

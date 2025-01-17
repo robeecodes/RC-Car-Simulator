@@ -236,6 +236,7 @@ export default class RoadKit {
             position: new CANNON.Vec3(target.position.x, target.position.y, target.position.z),
             material: this.groundMaterial
         });
+        body.name = "roadkit";
         // Create a box collider for the top of the bridge
         if (tag === "Bridge") {
             const halfExtents = new CANNON.Vec3(this.tileSize / 2, 0.005, this.tileSize / 2);
