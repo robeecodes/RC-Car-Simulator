@@ -127,6 +127,7 @@ function loadEntities() {
             UITools.removeUIElement(guide);
             // Add renderer to the document
             document.body.appendChild(renderer.domElement);
+            play();
         } else {
             requestAnimationFrame(checkLoaded); // Check again in the next frame
         }
@@ -214,7 +215,6 @@ function init() {
 
     window.addEventListener("resize", onWindowResize, false); //resize callback
     controls = new OrbitControls(camera, renderer.domElement);
-    play();
 }
 
 /**
