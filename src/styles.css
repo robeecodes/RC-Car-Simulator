@@ -144,10 +144,11 @@ h2, p.lead, button, .btn, .electro-text {
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  height: 15vh;
+  height: 20vh;
   width: 50vw;
 
   overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 #roadPieces button {
