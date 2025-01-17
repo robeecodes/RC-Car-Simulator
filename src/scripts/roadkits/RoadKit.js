@@ -311,28 +311,6 @@ export default class RoadKit {
         // Append the button to the document body
         addUIElement(closeButton);
 
-        // Create the instructions
-        const editInfo = document.createElement('div');
-        editInfo.className = 'text-light p-3 rounded-1';
-        editInfo.id = 'editInfo';
-        editInfo.innerHTML =
-            `<button type="button" class="btn btn-danger" aria-label="Close">X</button>
-            <p class="lead">Tile Editor Instructions:</p>
-            <ul class="list-group text-light">
-                <li class="list-group-item text-light">Click a road tile on the rug and move your mouse to move it.</li>
-                <li class="list-group-item text-light">Click a tile button to create a new tile.</li>
-                <li class="list-group-item text-light">Click on the rug to place the tile. This will delete any tiles in its position.</li>
-                <li class="list-group-item text-light">While a tile is selected, press A or D to rotate it.</li>
-                <li class="list-group-item text-light">Press Delete to remove a selected tile.</li>
-            </ul>`
-
-        // Append the instructions to the document body
-        addUIElement(editInfo);
-
-        document.querySelector('#editInfo button').addEventListener('click', e => {
-            removeUIElement(editInfo);
-        });
-
         // Create the tile selection buttons
         const tileSelection = document.createElement('div');
         tileSelection.className = 'bg-dark text-center rounded-1';
@@ -356,6 +334,28 @@ export default class RoadKit {
             const handler = (e) => this._createTile(e, id);
             this.tiles[id].handler = handler;
             document.querySelector(`#${id}`).addEventListener('click', handler);
+        });
+
+        // Create the instructions
+        const editInfo = document.createElement('div');
+        editInfo.className = 'text-light p-3 rounded-1';
+        editInfo.id = 'editInfo';
+        editInfo.innerHTML =
+            `<button type="button" class="btn btn-danger" aria-label="Close">X</button>
+            <p class="lead">Tile Editor Instructions:</p>
+            <ul class="list-group text-light">
+                <li class="list-group-item text-light">Click a road tile on the rug and move your mouse to move it.</li>
+                <li class="list-group-item text-light">Click a tile button to create a new tile.</li>
+                <li class="list-group-item text-light">Click on the rug to place the tile. This will delete any tiles in its position.</li>
+                <li class="list-group-item text-light">While a tile is selected, press A or D to rotate it.</li>
+                <li class="list-group-item text-light">Press Delete to remove a selected tile.</li>
+            </ul>`
+
+        // Append the instructions to the document body
+        addUIElement(editInfo);
+
+        document.querySelector('#editInfo button').addEventListener('click', e => {
+            removeUIElement(editInfo);
         });
 
         // Configure key down events to rotate and delete tiles
