@@ -478,6 +478,17 @@ export default class RoadKit {
         // Create the tile mesh
         this.selectedTile.mesh = this.selectedTile.tile.mesh.clone();
         this.selectedTile.mesh.position.set(this.selectedTile.position.x, this.selectedTile.position.y, this.selectedTile.position.z);
+
+        // Make new tile green
+        this.selectedTile.mesh.children.forEach((child) => {
+            // Store the original material to restore later
+            this.originalMaterials.push(child.material);
+            // Create new red material and assign it
+            const newMaterial = child.material.clone();
+            newMaterial.emissive = new THREE.Color(0x00ff00);
+            newMaterial.emissiveIntensity = 0.1;
+            child.material = newMaterial;
+        });
         this.scene.add(this.selectedTile.mesh);
 
         // Add a physics body for specific tile types if needed
@@ -614,7 +625,7 @@ export default class RoadKit {
     }
 
     /**
-     * Roatate the selected tile
+     * Rotate the selected tile
      * @param e
      * @param {Object} target The tile to rotate
      * @param {Number} rotateAmount The amount to rotate the tile
@@ -653,6 +664,19 @@ export default class RoadKit {
 
         // Update the tile's mesh position
         this.selectedTile.mesh.position.set(finalPosition.x, this.selectedTile.mesh.position.y, finalPosition.z);
+
+        // Ensure any overlay is removed
+        if (this.originalMaterials !== []) {
+            this.selectedTile.mesh.children.forEach((child, i) => {
+                // For each child, remove its new material and restore the original
+                destroyMaterial(child.material);
+                child.material = this.originalMaterials[i];
+            });
+
+            // Now there is no hovered tile
+            this.hoveredTile = null;
+            this.originalMaterials = [];
+        }
 
         // Place the physics body and remove any applied forces
         if (this.selectedTile.body) {
