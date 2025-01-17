@@ -27,7 +27,7 @@ This prototype is created as a proof-of-concept for fictional gadget retailer, _
 - Jazz Funk Groove Instrumental by [ArtManzh](https://pixabay.com/users/artmanzh-3855363/) via [Pixabay](https://pixabay.com/music/smooth-jazz-jazz-funk-groove-instrumental-222618/)
 - Night Jazz Beats by [flybirdaudio](https://pixabay.com/users/flybirdaudio-24094011/) via [Pixabay](https://pixabay.com/music/smooth-jazz-night-jazz-beats-10039/)
 - Powerful Energy - Upbeat Rock Advertising Music by [FASSounds](https://pixabay.com/users/fassounds-3433550/) via [Pixabay](https://pixabay.com/music/rock-powerful-energy-upbeat-rock-advertising-music-245728/)
-- Rock Start by [Goodrx](https://pixabay.com/users/goodrx-46077013/) via [Pixabay](https://pixabay.com/music/rock-rock-star-251632/)
+- Rock Star by [Goodrx](https://pixabay.com/users/goodrx-46077013/) via [Pixabay](https://pixabay.com/music/rock-rock-star-251632/)
 - Save As by [tobylane](https://pixabay.com/users/tobylane-15168815/) via [Pixabay](https://pixabay.com/music/beats-save-as-115826/)
 - Smooth Soul by [mosesharrisjr](https://pixabay.com/users/mosesharrisjr-44001257/) via [Pixabay](https://pixabay.com/music/beats-smooth-soul-217868/)
 - Wild Car Driving Powerful Industrial Sport Rock by [Emmraan](https://pixabay.com/users/emmraan-24732583/) via [Pixabay](https://pixabay.com/music/rock-wild-car-driving-powerful-industrial-sport-rock-282915/)
