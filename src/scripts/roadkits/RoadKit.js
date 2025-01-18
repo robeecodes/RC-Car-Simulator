@@ -406,13 +406,13 @@ export default class RoadKit {
         // Do nothing if no tile is selected
         if (!this.selectedTile) return;
 
-        // Rotate anti-clockwise when pressing a
+        // Rotate when pressing a
         if (e.key === "a" || e.key === "A") {
-            this._rotateTile(e, this.selectedTile, Math.PI / 2);
-        }
-        // Rotate clockwise when pressing d
-        if (e.key === "d" || e.key === "D") {
             this._rotateTile(e, this.selectedTile, -Math.PI / 2);
+        }
+        // Rotate when pressing d
+        if (e.key === "d" || e.key === "D") {
+            this._rotateTile(e, this.selectedTile, Math.PI / 2);
         }
         // Delete the selected tile when pressing Delete
         if (e.key === "Delete") {
