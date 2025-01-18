@@ -416,8 +416,8 @@ export default class RoadKit {
         }
         // Delete the selected tile when pressing Delete
         if (e.key === "Delete") {
-            destroyThreeMesh(this.selectedTile.mesh);
-            if (this.selectedTile.body) destroyCannonBody(this.selectedTile.body);
+            destroyThreeMesh(this.selectedTile.mesh, this.scene);
+            if (this.selectedTile.body) destroyCannonBody(this.selectedTile.body, this.physicsWorld);
             this.selectedTile = null;
             this.isDragging = false;
         }
